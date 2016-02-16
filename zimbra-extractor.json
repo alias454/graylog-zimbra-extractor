@@ -1,0 +1,449 @@
+{
+  "extractors": [
+    {
+      "condition_type": "string",
+      "condition_value": "sudo:",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "sudo:\\s+(\\S+)\\s+:"
+      },
+      "extractor_type": "regex",
+      "order": 21,
+      "source_field": "message",
+      "target_field": "sudo_executor",
+      "title": "Sudo Executor"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "sudo:",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "sudo:.+COMMAND=(.+);?"
+      },
+      "extractor_type": "regex",
+      "order": 22,
+      "source_field": "message",
+      "target_field": "sudo_command",
+      "title": "Sudo Command"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "sudo:",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "sudo:.+USER=(\\S+)"
+      },
+      "extractor_type": "regex",
+      "order": 23,
+      "source_field": "message",
+      "target_field": "sudo_command_user",
+      "title": "Sudo Command User"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "session closed for user",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "pam_unix\\((.*?)\\):"
+      },
+      "extractor_type": "regex",
+      "order": 24,
+      "source_field": "message",
+      "target_field": "facility",
+      "title": "pam_unix_session_closed - Facility"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "session closed for user",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": ": session closed for user (.*)$"
+      },
+      "extractor_type": "regex",
+      "order": 25,
+      "source_field": "message",
+      "target_field": "user",
+      "title": "pam_unix_session_closed - User"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "session opened for user",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "pam_unix\\((.*?)\\):"
+      },
+      "extractor_type": "regex",
+      "order": 26,
+      "source_field": "message",
+      "target_field": "facility",
+      "title": "pam_unix_session_opened - Facility"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "session opened for user",
+      "converters": [
+        {
+          "type": "numeric",
+          "config": {}
+        }
+      ],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": " by \\(uid=(.*?)\\)"
+      },
+      "extractor_type": "regex",
+      "order": 27,
+      "source_field": "message",
+      "target_field": "by_uid",
+      "title": "pam_unix_session_opened - By uid"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": ") CMD (",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "CMD \\((.*)\\)$"
+      },
+      "extractor_type": "regex",
+      "order": 30,
+      "source_field": "message",
+      "target_field": "command",
+      "title": "crond_run - Command"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": "session opened for user",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "session opened for user (.*?) by"
+      },
+      "extractor_type": "regex",
+      "order": 28,
+      "source_field": "message",
+      "target_field": "user",
+      "title": "pam_unix_session_opened - User"
+    },
+    {
+      "condition_type": "string",
+      "condition_value": ") CMD (",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "\\(([^)]*)\\)"
+      },
+      "extractor_type": "regex",
+      "order": 29,
+      "source_field": "message",
+      "target_field": "user",
+      "title": "crond_run - User"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "DeviceId=([A-Za-z0-9]+)"
+      },
+      "extractor_type": "regex",
+      "order": 15,
+      "source_field": "message",
+      "target_field": "DeviceID",
+      "title": "ZMSYNC DeviceID"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "DeviceType=([A-Za-z0-9]+)"
+      },
+      "extractor_type": "regex",
+      "order": 16,
+      "source_field": "message",
+      "target_field": "DeviceType",
+      "title": "ZMSYNC DeviceType"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "name=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 17,
+      "source_field": "message",
+      "target_field": "ActiveSyncUser",
+      "title": "ZMSYNC ActiveSyncUser"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "ip=([0-9.]+)"
+      },
+      "extractor_type": "regex",
+      "order": 18,
+      "source_field": "message",
+      "target_field": "Remote_IP",
+      "title": "ZMSYNC Remote IP"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "cmd=([a-zA-Z]+)"
+      },
+      "extractor_type": "regex",
+      "order": 19,
+      "source_field": "message",
+      "target_field": "CMD_Action",
+      "title": "ZimbraAdminActionsCMD"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "name=[A-Za-z0-9.@]+.*?name=([A-Za-z0-9.@]+)",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "member=\\[([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 11,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetRemoveListMember"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "!members=\\[([A-Za-z0-9.@]+) | !member=\\[([A-Za-z0-9.@]+)",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "name=[A-Za-z0-9.@]+.*?name=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 14,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetAccount"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "cmd=CreateAccount",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": " name=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 12,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetCreateAccount"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "ua=(ZimbraWebClient)"
+      },
+      "extractor_type": "regex",
+      "order": 20,
+      "source_field": "message",
+      "target_field": "UA",
+      "title": "ZimbraAdminUA"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "cmd=DeleteAccount",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": " name=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 13,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetDeleteAccount"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "name=[A-Za-z0-9.@]+.*?name=([A-Za-z0-9.@]+)",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "members=\\[([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 10,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetAddListMember"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "cmd=DelegateAuth",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "accountName=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 8,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetDelegateAccount"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "cmd=SetPassword",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "name=[A-Za-z0-9.@]+.*?name=([A-Za-z0-9.@]+)"
+      },
+      "extractor_type": "regex",
+      "order": 9,
+      "source_field": "message",
+      "target_field": "Target_Account",
+      "title": "ZimbraTargetResetPassword"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "to=<?([\\/\\(\\)\\.@a-zA-Z0-9 _-]+)"
+      },
+      "extractor_type": "regex",
+      "order": 0,
+      "source_field": "message",
+      "target_field": "MessageTo",
+      "title": "ZimbraMessageTo"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "status=\"?([a-zA-Z0-9_-]+)"
+      },
+      "extractor_type": "regex",
+      "order": 1,
+      "source_field": "message",
+      "target_field": "MessageStatus",
+      "title": "ZimbraMessageStatus"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [
+        {
+          "type": "numeric",
+          "config": {}
+        }
+      ],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "size=\"?([0-9]+)"
+      },
+      "extractor_type": "regex",
+      "order": 2,
+      "source_field": "message",
+      "target_field": "MessageSize",
+      "title": "ZimbraMessageSize"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "from=<?([\\/\\(\\)\\.@\\+a-zA-Z0-9 _-]+)"
+      },
+      "extractor_type": "regex",
+      "order": 3,
+      "source_field": "message",
+      "target_field": "MessageFrom",
+      "title": "ZimbraMessageFrom"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "RCPT from ([\\/\\(\\)\\.@a-zA-Z0-9 _-]+)"
+      },
+      "extractor_type": "regex",
+      "order": 4,
+      "source_field": "message",
+      "target_field": "MessageRCPTFrom",
+      "title": "ZimbraMessageRCPTFrom"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "queued as ([zA-Z0-9]+)"
+      },
+      "extractor_type": "regex",
+      "order": 6,
+      "source_field": "message",
+      "target_field": "MessageQueuedAs",
+      "title": "ZimbraMessageQueuedAs"
+    },
+    {
+      "condition_type": "regex",
+      "condition_value": "(Cmd=[FolderSync|Sync])",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": "sync - ([\\:\\,\\.\\$a-zA-Z0-9 _-]+)"
+      },
+      "extractor_type": "regex",
+      "order": 7,
+      "source_field": "message",
+      "target_field": "SyncMessage",
+      "title": "ZimbraSyncMessage"
+    },
+    {
+      "condition_type": "none",
+      "condition_value": "",
+      "converters": [],
+      "cursor_strategy": "copy",
+      "extractor_config": {
+        "regex_value": " ?([A-Z0-9]{4,20}):"
+      },
+      "extractor_type": "regex",
+      "order": 5,
+      "source_field": "message",
+      "target_field": "MessageQueue",
+      "title": "ZimbraMessageQueue"
+    }
+  ],
+  "version": "1.3.3 (0fda9dc)"
+}
